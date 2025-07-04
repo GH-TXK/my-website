@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>自动打开邮箱</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        // 跳转到 mailto 链接
+        window.location.href = "mailto:support_eu%40outdouse.com%3Fsubject%3DYoga%20tutorial%26body%3DYoga%20tutorial%20Please.";
+      }, 2000); // 延迟 2 秒，避免跳转太突兀
+    }
+  </script>
+  <style>
+    body { text-align: center; font-family: sans-serif; padding-top: 100px; }
+    p { font-size: 18px; }
+  </style>
+</head>
+<body>
+  <p>正在跳转至邮件应用...</p>
+  <p>如果没有跳转，请 <a href="mailto:support_eu%40outdouse.com%3Fsubject%3DYoga%20tutorial%26body%3DYoga%20tutorial%20Please.">点此手动打开邮件</a></p>
+</body>
+</html>
