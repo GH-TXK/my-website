@@ -1,24 +1,37 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>自动打开邮箱</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>邮件跳转</title>
   <script>
-    window.onload = function() {
-      setTimeout(function() {
-        // 跳转到 mailto 链接
-        window.location.href = "mailto:support_eu%40outdouse.com%3Fsubject%3DYoga%20tutorial%26body%3DYoga%20tutorial%20Please.";
-      }, 2000); // 延迟 2 秒，避免跳转太突兀
+    function getTemplateParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const template = urlParams.get('template');
+
+      let mailtoLink = '';
+
+      switch (template) {
+        case 'invite':
+          mailtoLink = 'mailto:yingdao@aoyong.tech?subject=活动邀请&body=欢迎参加我们的活动，请回复确认。';
+          break;
+        case 'feedback':
+          mailtoLink = 'mailto:yingdao@aoyong.tech?subject=客户反馈&body=请填写您的反馈意见，我们非常重视您的建议。';
+          break;
+        case 'cooperation':
+          mailtoLink = 'mailto:yingdao@aoyong.tech?subject=商务合作&body=您好，我们希望与贵方探讨合作机会。';
+          break;
+        default:
+          mailtoLink = 'mailto:yingdao@aoyong.tech?subject=默认邮件&body=这是默认邮件内容。';
+      }
+
+      document.getElementById('sendBtn').href = mailtoLink;
     }
+
+    window.onload = getTemplateParams;
   </script>
-  <style>
-    body { text-align: center; font-family: sans-serif; padding-top: 100px; }
-    p { font-size: 18px; }
-  </style>
 </head>
 <body>
-  <p>正在跳转至邮件应用...</p>
-  <p>如果没有跳转，请 <a href="mailto:support_eu%40outdouse.com%3Fsubject%3DYoga%20tutorial%26body%3DYoga%20tutorial%20Please.">点此手动打开邮件</a></p>
+  <h2>点击按钮发送邮件</h2>
+  <a id="sendBtn" href="#"><button>发送邮件</button></a>
 </body>
 </html>
