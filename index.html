@@ -24,14 +24,19 @@
           mailtoLink = 'mailto:yingdao@aoyong.tech?subject=默认邮件&body=这是默认邮件内容。';
       }
 
+      // 设置按钮链接
       document.getElementById('sendBtn').href = mailtoLink;
+
+      // 自动跳转
+      window.location.href = mailtoLink;
     }
 
     window.onload = getTemplateParams;
   </script>
 </head>
 <body>
-  <h2>点击按钮发送邮件</h2>
+  <h2>正在尝试打开邮件客户端...</h2>
+  <p>如果没有自动跳转，请点击下方按钮：</p>
   <a id="sendBtn" href="#"><button>发送邮件</button></a>
 </body>
 </html>
