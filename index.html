@@ -2,7 +2,49 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>邮件跳转</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 2em;
+      text-align: center;
+      color: #333;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 1em;
+    }
+    p {
+      font-size: 1rem;
+      margin-bottom: 1.5em;
+    }
+    button {
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      padding: 0.75em 1.5em;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #005aaf;
+    }
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 1.25rem;
+      }
+      button {
+        width: 100%;
+        font-size: 1rem;
+      }
+    }
+  </style>
   <script>
     function getTemplateParams() {
       const urlParams = new URLSearchParams(window.location.search);
@@ -24,13 +66,13 @@
           mailtoLink = 'mailto:yingdao@aoyong.tech?subject=默认邮件&body=这是默认邮件内容。';
       }
 
-      // 设置按钮链接
+      // 设置按钮跳转链接
       document.getElementById('sendBtn').href = mailtoLink;
 
-      // 延迟 + open 跳转（提升兼容性）
+      // 延迟跳转（提升兼容性）
       setTimeout(() => {
         window.open(mailtoLink, '_self');
-      }, 1000);
+      }, 1200);
     }
 
     window.onload = getTemplateParams;
@@ -38,7 +80,7 @@
 </head>
 <body>
   <h2>正在打开邮件客户端...</h2>
-  <p>如未自动跳转，请点击下方按钮发送邮件：</p>
+  <p>如果未自动跳转，请点击下方按钮发送邮件：</p>
   <a id="sendBtn" href="#"><button>发送邮件</button></a>
 </body>
 </html>
