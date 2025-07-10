@@ -27,16 +27,18 @@
       // 设置按钮链接
       document.getElementById('sendBtn').href = mailtoLink;
 
-      // 自动跳转
-      window.location.href = mailtoLink;
+      // 延迟 + open 跳转（提升兼容性）
+      setTimeout(() => {
+        window.open(mailtoLink, '_self');
+      }, 1000);
     }
 
     window.onload = getTemplateParams;
   </script>
 </head>
 <body>
-  <h2>正在尝试打开邮件客户端...</h2>
-  <p>如果没有自动跳转，请点击下方按钮：</p>
+  <h2>正在打开邮件客户端...</h2>
+  <p>如未自动跳转，请点击下方按钮发送邮件：</p>
   <a id="sendBtn" href="#"><button>发送邮件</button></a>
 </body>
 </html>
