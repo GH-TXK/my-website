@@ -46,37 +46,62 @@
     }
   </style>
   <script>
-    function getTemplateParams() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const template = urlParams.get('template');
+  let mailtoLink = '';
+  let countdown = 5; // 设置倒计时秒数
 
-      let mailtoLink = '';
+  function getTemplateParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const template = urlParams.get('template');
 
-      switch (template) {
-        case 'invite':
-          mailtoLink = 'mailto:yingdao@aoyong.tech?subject=活动邀请&body=欢迎参加我们的活动，请回复确认。';
-          break;
-        case 'feedback':
-          mailtoLink = 'mailto:yingdao@aoyong.tech?subject=客户反馈&body=请填写您的反馈意见，我们非常重视您的建议。';
-          break;
-        case 'cooperation':
-          mailtoLink = 'mailto:yingdao@aoyong.tech?subject=商务合作&body=您好，我们希望与贵方探讨合作机会。';
-          break;
-        default:
-          mailtoLink = 'mailto:yingdao@aoyong.tech?subject=默认邮件&body=这是默认邮件内容。';
-      }
-
-      // 设置按钮跳转链接
-      document.getElementById('sendBtn').href = mailtoLink;
-
-      // 延迟跳转（提升兼容性）
-      setTimeout(() => {
-        window.open(mailtoLink, '_self');
-      }, 1200);
+    switch (template) {
+      case 'invite':
+        mailtoLink = 'mailto:yingdao@aoyong.tech?subject=活动邀请&body=欢迎参加我们的活动，请回复确认。';
+        break;
+      case 'feedback':
+        mailtoLink = 'mailto:yingdao@aoyong.tech?subject=客户反馈&body=请填写您的反馈意见，我们非常重视您的建议。';
+        break;
+      case 'cooperation':
+        mailtoLink = 'mailto:yingdao@aoyong.tech?subject=商务合作&body=您好，我们希望与贵方探讨合作机会。';
+        break;
+      default:
+        mailtoLink = 'mailto:yingdao@aoyong.tech?subject=默认邮件&body=这是默认邮件内容。';
     }
 
-    window.onload = getTemplateParams;
-  </script>
+    // 设置按钮链接
+    document.getElementById('sendBtn').href = mailtoLink;
+  }
+
+  function bindButtonClick() {
+    document.getElementById('sendBtn').addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location.href = mailtoLink;
+    });
+  }
+
+  function startCountdown() {
+    const countdownEl = document.createElement('p');
+    countdownEl.id = 'countdownInfo';
+    countdownEl.textContent = `正在尝试跳转邮件客户端 (${countdown}s)...`;
+    document.body.insertBefore(countdownEl, document.getElementById('sendBtn'));
+
+    const timer = setInterval(() => {
+      countdown--;
+      countdownEl.textContent = `正在尝试跳转邮件客户端 (${countdown}s)...`;
+
+      if (countdown <= 0) {
+        clearInterval(timer);
+        countdownEl.textContent = '如未跳转，请点击下方按钮发送邮件。';
+        window.location.href = mailtoLink; // 尝试跳转
+      }
+    }, 1000);
+  }
+
+  window.onload = function () {
+    getTemplateParams();
+    bindButtonClick();
+    startCountdown();
+  };
+</script>
 </head>
 <body>
   <h2>正在打开邮件客户端...</h2>
